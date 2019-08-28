@@ -18,14 +18,14 @@ while [ "${x:=1}" -le 10 ]
     societe=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
     nom=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
     prenom=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 8 | head -n 1)
-    adresse=`shuf -i 1-200 -n 1`,$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 50 | head -n 1)
+    adresse=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 50 | head -n 1)
     code_postal=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 5)
     ville=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 12 | head -n 1)
     telephone=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 10)
     mail=$nom+'.'+$prenom+'@'+$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
 
     mysql -u amelie -ppassword <<EOFMYSQL
-        use testdb;
+        use test_infinivo;
         insert into client(client_id,societe,nom,prenom,adresse,code_postal,ville,telephone,mail)
         values("$x","$societe","$nom","$prenom","$adresse","$code_postal","$ville","$telephone","mail");
 EOFMYSQL
@@ -36,7 +36,7 @@ EOFMYSQL
     prix_unitaire=adresse=`shuf -i 1-3000 -n 1`
 
     mysql -u amelie -ppassword <<EOFMYSQL
-        use testdb;
+        use test_infinivo;
         insert into logiciel(logiciel_id,descriptif,nom,prix_unitaire)
         values("$x","$descriptif","$nom","$prix_unitaire");
 EOFMYSQL
@@ -48,7 +48,7 @@ EOFMYSQL
     utilisation=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
 
     mysql -u amelie -ppassword <<EOFMYSQL
-        use testdb;
+        use test_infinivo;
         insert into licence(licence_id,date_debut,date_fin,utilisation)
         values("$x","$date_debut","$date_fin","$utilisation");
 EOFMYSQL
@@ -64,7 +64,7 @@ EOFMYSQL
     status_com=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
 
         mysql -u amelie -ppassword <<EOFMYSQL
-        use testdb;
+        use test_infinivo;
         insert into commande(commande_id,client_id,date_commande,logiciel_id,licence_id,remise,quantite,prix,status_com)
         values("$x","$date_debut","$date_fin","$utilisation");
 EOFMYSQL
