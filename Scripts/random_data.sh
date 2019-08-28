@@ -12,11 +12,6 @@
 # M A I N . . . 
 #------------------------------------------------------------------------------
 
-    logiciel_id INT NOT NULL AUTO_INCREMENT,
-    descriptif VARCHAR(255) NOT NULL,
-    nom VARCHAR(32) NOT NULL,
-    prix_unitaire INT NOT NULL,
-
 while [ "${x:=1}" -le 10 ]
     do
     # Table client
