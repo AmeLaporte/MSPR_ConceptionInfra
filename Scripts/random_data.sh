@@ -68,7 +68,7 @@ EOFMYSQL
         insert into commande(commande_id,client_id,date_commande,logiciel_id,licence_id,remise,quantite,prix,status_com)
         values("$x","$client_id","$date_commande","$logiciel_id","$licence_id","$remise","$quantite","$prix","$status_com");
 EOFMYSQL
-
+let x+=1
 done
 
 echo "Vos donnees ont ete generees."
