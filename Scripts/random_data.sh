@@ -66,7 +66,7 @@ EOFMYSQL
         mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
         insert into commande(commande_id,client_id,date_commande,logiciel_id,licence_id,remise,quantite,prix,status_com)
-        values("$x","$date_debut","$date_fin","$utilisation");
+        values("$x","$client_id","$date_commande","$logiciel_id","$licence_id","$remise","$quantite","$prix","$status_com");
 EOFMYSQL
 
 done
