@@ -33,7 +33,7 @@ EOFMYSQL
     # Table logiciel
     descriptif=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 50 | head -n 1)
     nom=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
-    prix_unitaire=adresse=`shuf -i 1-3000 -n 1`
+    prix_unitaire=`shuf -i 1-3000 -n 1`
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
@@ -42,15 +42,15 @@ EOFMYSQL
 EOFMYSQL
 
     # Table licence
-    id_logiciel=`shuf -i 1-400 -n 1`
+    logiciel_id=`shuf -i 1-400 -n 1`
     date_debut=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%d-%m-%Y'`
     date_fin=`date -d "$((RANDOM%2+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%d-%m-%Y'`
     utilisation=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
-        insert into licence(licence_id,date_debut,date_fin,utilisation)
-        values("$x","$date_debut","$date_fin","$utilisation");
+        insert into licence(licence_id,logiciel_id,date_debut,date_fin,utilisation)
+        values("$x","logiciel_id","$date_debut","$date_fin","$utilisation");
 EOFMYSQL
 
     # table commande
