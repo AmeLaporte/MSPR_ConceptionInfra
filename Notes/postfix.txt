@@ -1,0 +1,42 @@
+Installation
+------------
+* yum install mailx postfix
+
+Configuration
+-------------
+vi /etc/postfix/main.cf
+  inet_interfaces = loopback-only # seul le serveur sur lequel Postfix est installé peut envoyer du courrier
+  mydestination = $myhostname, localhost.$mydomain, $mydomain # Les emails sont envoyés depuis $mydomain
+
+vi /etc/aliases # redirection des emails avertissement système vers l'adresse de notre administrateur réseau
+  postmaster:    root
+  root:          admin@infinivo.fr
+
+# On recharge la configuration
+newaliases
+systemctl restart postfix
+
+Envoyer un email
+----------------
+Texte brut : echo "Ceci est le corps du message" | mail -s "Sujet du mail" email@destinataire.com
+HTML : mailx -a 'Content-Type: text/html' -s "Objet" email@destinaire.com < email.html
+
+Si on décide de ne pas utiliser mailx
+-------------------------------------
+
+(
+  echo "To: user@gmail.com"
+  echo "Subject: The Subject"
+  echo "Content-Type: text/html"
+  echo
+  cat mail.html
+) | sendmail -t
+
+Note : SPAM
+-----------
+Les emails envoyés seront très probablement marqués comme étant du spam par les destinataires. Configurer le serveur pour éviter ce phénomène est complexe, nécessite la propriété physique d’un domaine et la modification des enregistrements NX en particulier. Nous ne pourrons pas le faire dans le cadre de cet exercice.
+
+Note : conversion HTML vers PDF pour les factures
+-------------------------------------------------
+yum install wkhtmltopdf
+wkhtmltopdf facture.html google.pdf
