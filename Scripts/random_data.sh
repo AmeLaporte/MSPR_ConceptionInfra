@@ -43,8 +43,8 @@ EOFMYSQL
 
     # Table licence
     logiciel_id=`shuf -i 1-400 -n 1`
-    date_debut=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%d-%m-%Y'`
-    date_fin=`date -d "$((RANDOM%2+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%d-%m-%Y'`
+    date_debut=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
+    date_fin=`date -d "$((RANDOM%2+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
     utilisation=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
 
     mysql -u amelie -ppassword <<EOFMYSQL
@@ -55,7 +55,7 @@ EOFMYSQL
 
     # table commande
     client_id=`shuf -i 1-400 -n 1`
-    date_commande=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%d-%m-%Y'`
+    date_commande=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
     logiciel_id=`shuf -i 1-400 -n 1`
     licence_id=`shuf -i 1-400 -n 1`
     remise=`shuf -i 1-100 -n 1`
