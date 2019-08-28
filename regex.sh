@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 : <<'COMMENT'
 # Recuperer les donnees des logs SAMBA
 #id: pour donner l id dans la table mySQL qui s incremente automatiquement
