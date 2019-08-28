@@ -1,6 +1,11 @@
-<!-- TEMPLATE HTML TEMP -->
-
 <!doctype html>
+
+<?php
+  //Connexion à la bdd
+  $db = mysqli_connect('localhost','root','root','database_name')
+  or die('Erreur de communication avec la base.');
+?>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -101,6 +106,17 @@
     }
     </style>
 </head>
+
+
+<!--
+
+
+Pour le moment les infos à piocher en BDD sont indiquées par [$$$$$$$$$$] dans le document.
+<?php $requete = "SELECT * FROM TABLE"; echo $requete; ?>
+
+
+-->
+
 
 <body>
     <div class="facture-box">
@@ -216,7 +232,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                     Total HT&nbsp;: [$$$$$$$$$$]<br>
+                     Total HT&nbsp;[$$$$$$$$$$]<br>
                      TVA&nbsp;: 20%<br>
                      <hr>
                      Total TTC&nbsp;: [$$$$$$$$$$]
@@ -227,5 +243,9 @@
 
         </table>
     </div>
+
+    <mysqli_close($db);
+    ?>
+
 </body>
 </html>
