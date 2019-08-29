@@ -27,7 +27,7 @@ while [ "${x:=1}" -le 400 ]
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
         insert into client(client_id,societe,nom,prenom,adresse,code_postal,ville,telephone,mail)
-        values("$x","$societe","$nom","$prenom","$adresse","$code_postal","$ville","$telephone","mail");
+        values("$x","$societe","$nom","$prenom","$adresse","$code_postal","$ville","$telephone","$mail");
 EOFMYSQL
 
     # Table logiciel
