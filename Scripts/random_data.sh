@@ -12,7 +12,7 @@
 # M A I N . . . 
 #------------------------------------------------------------------------------
 
-while [ "${x:=1}" -le 400 ]
+while [ "${x:=1}" -le 50 ]
     do
     # Table client
     societe=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
@@ -22,7 +22,7 @@ while [ "${x:=1}" -le 400 ]
     code_postal=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 5)
     ville=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 12 | head -n 1)
     telephone=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 10)
-    mail=$nom+'.'+$prenom+'@'+$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
+    mail=$nom+'.'+$prenom+'@'+$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)+".com"
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
