@@ -1,8 +1,8 @@
 SET NAMES 'utf8mb4';
 SET CHARACTER SET utf8mb4;
 
-create database infinivo;
-use infinivo;
+create database infinivo_db;
+use infinivo_db;
 
 create table if not exists client(
     client_id INT NOT NULL AUTO_INCREMENT,
