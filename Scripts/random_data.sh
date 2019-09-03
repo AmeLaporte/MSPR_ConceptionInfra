@@ -61,7 +61,7 @@ EOFMYSQL
     logiciel_id=`shuf -i 1-$x -n 1`
     licence_id=`shuf -i 1-$x -n 1`
     remise=`shuf -i 1-100 -n 1`
-    numero_facture=$(cat /dev/urandom | tr -dc '0-9A-Z' | fold -w 10 | head -n 1)
+    numero_facture=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
     prix=`shuf -i 1-6000 -n 1`
     status_com=${status[$RANDOM % ${#status[@]}]}
 
