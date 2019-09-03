@@ -1,12 +1,13 @@
 #!/bin/sh
-################################
+#==========================================================
 # Sauvegarde de la BDD Infinivo
-#
+#----------------------------------------------------------
 # Ce script doit tourner sur le serveur de backup.
 # On recupère une copie de la BDD de prod via le reseau.
-# Necessite mysqldump (du paquet mysql) et gzip.
-# 
-################################
+# Necessite mysqldump et gzip.
+#==========================================================
+
+
 
 # Variables, pas de / final dans les chemins
 bdd_name=testinfinivo
@@ -15,10 +16,20 @@ bdd_port=
 bdd_user=
 bdd_password=
 
-dir_log=/var/log/backup
-dir_temp=/tmp/backup
-dir_backup=/backups
+facture_ip=
+facture_user=
+facture_password=
 
+dir_backup=/backups
+dir_factures=/factures
+dir_factures_distant=/factures
+
+dir_temp=/tmp/backup
+dir_log=/var/log/backup
+
+#### DEBUT SCRIPT ####
+
+# Formats de date ISO
 timestamp_day=$(date '+%Y%m%d')
 timestamp=$(date '+%Y%m%d-%H%M%S')
 
@@ -40,7 +51,10 @@ VerifDossier ()
   fi
 }
 
-### Verification de l environnement
+
+
+########## Verification de l environnement #########
+
 # Journalisation
 if [[ -f $dir_log/backup-critical.log ]]
 then
@@ -61,9 +75,16 @@ fi
 # Volumes et points de montage
 VerifDossier $dir_temp
 VerifDossier $dir_backup
+VerifDossier $dir_factures
 
 VerifTailleDispo $dir_temp
 VerifTailleDispo $dir_backup
+VerifTailleDispo $dir_factures
+
+
+
+
+########## TRAITEMENT BASE ################
 
 ### Recuperation de la base
 mysqldump --host $bdd_ip -P $bdd_port -u $bdd_user -p $bdd_password --single-transaction --quick --lock-tables=false $bdd_name > $dir_temp/infinivo-$timestamp.sql
@@ -79,7 +100,7 @@ else
   exit 1
 fi
 
-# Traitement du fichier
+# Traitement du dump BDD
 gzip -q $dir_temp/infinivo-$timestamp.sql
 mv $dir_temp/infinivo-$timestamp.sql.gz $dir_backup
 
@@ -94,4 +115,16 @@ fi
 
 echo "[$timestamp] *** Traitement OK ***" >> $dir_log/backup-$timestamp_day.log
 
+
+
+
+########## TRAITEMENT FACTURES ################
+
+mkdir $dir_facture/$timestamp_day
+scp $facture_user@$facture_user:$dir_factures_distant $dir_factures/timestamp_day
+if (($? > 0))
+then
+  echo "[$timestamp] *** Erreur SCP copie des factures" >> $dir_log/backup-$timestamp_day.log
+  echo "[$timestamp] *** Invoices not saved, SCP error" >> $dir_log/backup-critical.log
+fi
 
