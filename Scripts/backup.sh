@@ -93,3 +93,5 @@ else
 fi
 
 echo "[$timestamp] *** Traitement OK ***" >> $dir_log/backup-$timestamp_day.log
+
+

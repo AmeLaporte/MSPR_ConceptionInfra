@@ -1,0 +1,12 @@
+Grandes étapes du script de backup :
+
+- vérification système
+- vérification réseau
+
+- dump bdd prod
+- compression
+- stockage
+
+- copie factures
+
+
