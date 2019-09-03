@@ -38,11 +38,11 @@ create table if not exists licence(
 create table if not exists commande(
     commande_id INT NOT NULL AUTO_INCREMENT,
     client_id INT NOT NULL,
-    date_commande DATE NOT NULL,
+    date_commande DATE,
     logiciel_id INT NOT NULL,
     licence_id INT NOT NULL,
     remise INT,
-    numero_facture INT NOT NULL,
+    numero_facture VARCHAR(10) NOT NULL,
     prix INT NOT NULL,
     status_com VARCHAR(32) NOT NULL,
     CONSTRAINT PK_COMMANDE PRIMARY KEY(commande_id),
