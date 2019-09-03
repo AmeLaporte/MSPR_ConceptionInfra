@@ -22,7 +22,7 @@ while [ "${x:=1}" -le 50 ]
     code_postal=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 5)
     ville=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 12 | head -n 1)
     telephone=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 10)
-    mail=$nom+'.'+$prenom+'@'+$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)+".com"
+    mail=$nom'.'$prenom'@'$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)".com"
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
@@ -49,8 +49,8 @@ EOFMYSQL
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
-        insert into licence(licence_id,logiciel_id,date_debut,date_fin,utilisation)
-        values("$x","$logiciel_id","$date_debut","$date_fin","$utilisation");
+        insert into licence(licence_id,logiciel_id,date_debut,date_fin,status_lic)
+        values("$x","$logiciel_id","$date_debut","$date_fin","$status_lic");
 EOFMYSQL
 
     # table commande
@@ -65,8 +65,8 @@ EOFMYSQL
 
         mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
-        insert into commande(commande_id,client_id,date_commande,logiciel_id,licence_id,remise,quantite,prix,status_com)
-        values("$x","$client_id","$date_commande","$logiciel_id","$licence_id","$remise","$quantite","$prix","$status_com");
+        insert into commande(commande_id,client_id,date_commande,logiciel_id,licence_id,remise,numero_facture,prix,status_com)
+        values("$x","$client_id","$date_commande","$logiciel_id","$licence_id","$remise","$numero_facture","$prix","$status_com");
 EOFMYSQL
 let x+=1
 done

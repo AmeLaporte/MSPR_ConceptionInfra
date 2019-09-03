@@ -30,7 +30,7 @@ create table if not exists licence(
     logiciel_id INT NOT NULL,
     date_debut DATE NOT NULL,
     date_fin DATE NOT NULL,
-    utilisation VARCHAR(3) NOT NULL,
+    status_lic VARCHAR(3) NOT NULL,
     CONSTRAINT PK_LICENCE PRIMARY KEY(licence_id),
     CONSTRAINT FK_LICENCE_LOGICIEL FOREIGN KEY(logiciel_id) REFERENCES logiciel(logiciel_id)
 );
@@ -42,7 +42,7 @@ create table if not exists commande(
     logiciel_id INT NOT NULL,
     licence_id INT NOT NULL,
     remise INT,
-    quantite INT NOT NULL,
+    numero_facture INT NOT NULL,
     prix INT NOT NULL,
     status_com VARCHAR(32) NOT NULL,
     CONSTRAINT PK_COMMANDE PRIMARY KEY(commande_id),
