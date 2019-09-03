@@ -12,6 +12,8 @@
 # M A I N . . . 
 #------------------------------------------------------------------------------
 
+status=("O" "N")
+
 while [ "${x:=1}" -le 50 ]
     do
     # Table client
@@ -45,7 +47,7 @@ EOFMYSQL
     logiciel_id=`shuf -i 1-$x -n 1`
     date_debut=`date -d "$((RANDOM%6+2006))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
     date_fin=`date -d "$((RANDOM%2+2012))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
-    utilisation=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 3 | head -n 1)
+    status_lic=${status[$RANDOM % ${#status[@]}]}
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
@@ -59,9 +61,9 @@ EOFMYSQL
     logiciel_id=`shuf -i 1-$x -n 1`
     licence_id=`shuf -i 1-$x -n 1`
     remise=`shuf -i 1-100 -n 1`
-    quantite=`shuf -i 1-12 -n 1`
+    numero_facture=$(cat /dev/urandom | tr -dc '0-9A-Z' | fold -w 10 | head -n 1)
     prix=`shuf -i 1-6000 -n 1`
-    status_com=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 10 | head -n 1)
+    status_com=${status[$RANDOM % ${#status[@]}]}
 
         mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
