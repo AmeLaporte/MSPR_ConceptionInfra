@@ -74,7 +74,7 @@ EOFMYSQL
         licence_id=`shuf -i 1-$x -n 1`
     else
     date_commande='0000-00-00'
-    licence_id='0'
+    licence_id='1'
     fi
 
         mysql -u amelie -ppassword <<EOFMYSQL
