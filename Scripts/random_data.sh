@@ -48,7 +48,7 @@ EOFMYSQL
     then
         logiciel_id=`shuf -i 1-$x -n 1`
     else
-        logiciel_id==`shuf -i 1-10 -n 1`
+        logiciel_id=`shuf -i 1-10 -n 1`
     fi
     status_lic=${status[$RANDOM % ${#status[@]}]}
     if [ $status_lic = "O" ]
