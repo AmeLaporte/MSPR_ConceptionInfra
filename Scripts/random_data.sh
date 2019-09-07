@@ -44,7 +44,11 @@ EOFMYSQL
 EOFMYSQL
 
     # Table licence
-    logiciel_id=`shuf -i 1-10 -n 1`
+    if [ $x -le 10 ]
+    then
+        logiciel_id=`shuf -i 1-$x -n 1`
+    else
+        logiciel_id==`shuf -i 1-10 -n 1`
     status_lic=${status[$RANDOM % ${#status[@]}]}
     if [ $status_lic = "O" ]
         then
@@ -63,7 +67,11 @@ EOFMYSQL
 
     # table commande
     client_id=`shuf -i 1-$x -n 1`
-    logiciel_id=`shuf -i 1-10 -n 1`
+    if [ $x -le 10 ]
+    then
+        logiciel_id=`shuf -i 1-$x -n 1`
+    else
+        logiciel_id==`shuf -i 1-10 -n 1`
     remise=`shuf -i 1-40 -n 1`
     numero_facture=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 9 | head -n 1)
     prix=`shuf -i 1-6000 -n 1`
