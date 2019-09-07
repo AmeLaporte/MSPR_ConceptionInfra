@@ -45,9 +45,15 @@ EOFMYSQL
 
     # Table licence
     logiciel_id=`shuf -i 1-$x -n 1`
-    date_debut=`date -d "$((RANDOM%6+2006))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
-    date_fin=`date -d "$((RANDOM%2+2012))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
     status_lic=${status[$RANDOM % ${#status[@]}]}
+    if [ $status_lic = "O" ]
+        then
+        date_debut=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
+        date_fin=`date -d "$((RANDOM%2+2012))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
+    else
+        date_debut='0000-00-00'
+        date_fin='0000-00-00'
+    fi
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
@@ -66,7 +72,7 @@ EOFMYSQL
     if [ $status_com = "O" ]
         then
         date_commande=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
-    else date_commande=''
+    else date_commande='0000-00-00'
     fi
 
         mysql -u amelie -ppassword <<EOFMYSQL
