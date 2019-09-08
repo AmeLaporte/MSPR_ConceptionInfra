@@ -35,6 +35,7 @@ do
         random_lic=${lic_array[$RANDOM % ${#lic_array[@]}]}
         # Envoyer un mail au client avec sa facture
         # Mettre a jour la bdd
-        mysql -u amelie -ppassword test_infinivo -e "UPDATE commande SET licence_id = "$random_lic" WHERE id='myid'";
+        mysql -u amelie -ppassword test_infinivo -e "UPDATE commande SET licence_id = "$random_lic" WHERE id='myid'"
+    fi
     echo $random_lic
 done
