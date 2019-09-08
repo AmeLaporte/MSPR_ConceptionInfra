@@ -8,6 +8,9 @@
 # V0.0 JpG 08/2019  -- Version initiale
 #==============================================================================
 
+#Script a planifier dans un crontab toutes les minutes
+
+today=`date '+%Y-%m-%d'`
 logiciels=$(mysql -D test_infinivo -u amelie -ppassword -se "select logiciel_id from commande where status_com='N'")
 
 #recuperer l'id du logiciel ET de la commande et iterer tout les 2 items et faire x-1 pour l'id commande?
@@ -33,9 +36,21 @@ do
      #) | sendmail -t
     else
         random_lic=${lic_array[$RANDOM % ${#lic_array[@]}]}
+        echo $random_lic
         # Envoyer un mail au client avec sa facture
         # Mettre a jour la bdd
+            #commande
+                #licence_id
         mysql -u amelie -ppassword test_infinivo -e "UPDATE commande SET licence_id = "$random_lic" WHERE id='myid'"
-    fi
-    echo $random_lic
+                #date_commande
+        mysql -u amelie -ppassword test_infinivo -e "UPDATE commande SET date_commande = "$today" WHERE id='myid'"
+                #status_com
+        mysql -u amelie -ppassword test_infinivo -e "UPDATE commande SET status_com = "O" WHERE id='myid'"
+            #licence
+                #date_debut
+                #date_fin
+                #status_lic
+
+
+    fi 
 done
