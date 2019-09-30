@@ -1,20 +1,21 @@
 #!/bin/sh
-#==========================================================
-# Sauvegarde de la BDD Infinivo
-#----------------------------------------------------------
-# Ce script doit tourner sur le serveur de backup.
-# On recupère une copie de la BDD de prod via le reseau.
-# Necessite mysqldump et gzip.
-#==========================================================
-
+#==============================================================================
+# Script  :   Ce script doit tourner sur le serveur de backup.
+#             On recupère une copie de la BDD de prod via le reseau.
+# Pre requis: Necessite mysqldump et gzip.
+# Appel   : backup.sh
+# Version : V1.0.0
+#------------------------------------------------------------------------------
+# V0.0 GB 08/2019  -- Version initiale
+#==============================================================================
 
 
 # Variables, pas de / final dans les chemins
-bdd_name=testinfinivo
+bdd_name=test_infinivo
 bdd_ip=
 bdd_port=
-bdd_user=
-bdd_password=
+bdd_user=amelie
+bdd_password=password
 
 facture_ip=
 facture_user=
@@ -82,8 +83,6 @@ VerifTailleDispo $dir_backup
 VerifTailleDispo $dir_factures
 
 
-
-
 ########## TRAITEMENT BASE ################
 
 ### Recuperation de la base
@@ -114,8 +113,6 @@ else
 fi
 
 echo "[$timestamp] *** Traitement OK ***" >> $dir_log/backup-$timestamp_day.log
-
-
 
 
 ########## TRAITEMENT FACTURES ################

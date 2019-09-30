@@ -31,6 +31,7 @@ create table if not exists licence(
     date_debut DATE NOT NULL,
     date_fin DATE NOT NULL,
     status_lic VARCHAR(3) NOT NULL,
+    cle_licence VARCHAR(255) NOT NULL,
     CONSTRAINT PK_LICENCE PRIMARY KEY(licence_id),
     CONSTRAINT FK_LICENCE_LOGICIEL FOREIGN KEY(logiciel_id) REFERENCES logiciel(logiciel_id)
 );

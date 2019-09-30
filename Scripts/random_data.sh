@@ -5,7 +5,7 @@
 # Appel   : random_data.sh
 # Version : V1.0.0
 #------------------------------------------------------------------------------
-# V0.0 JpG 08/2019  -- Version initiale
+# V0.0 AL 08/2019  -- Version initiale
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -51,6 +51,7 @@ EOFMYSQL
         logiciel_id=`shuf -i 1-10 -n 1`
     fi
     status_lic=${status[$RANDOM % ${#status[@]}]}
+    cle_licence= $(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 100 | head -n 1)
     if [ $status_lic = "O" ]
         then
         date_debut=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
@@ -62,8 +63,8 @@ EOFMYSQL
 
     mysql -u amelie -ppassword <<EOFMYSQL
         use test_infinivo;
-        insert into licence(licence_id,logiciel_id,date_debut,date_fin,status_lic)
-        values("$x","$logiciel_id","$date_debut","$date_fin","$status_lic");
+        insert into licence(licence_id,logiciel_id,date_debut,date_fin,status_lic,cle_licence)
+        values("$x","$logiciel_id","$date_debut","$date_fin","$status_lic","$cle_licence");
 EOFMYSQL
 
     # table commande
