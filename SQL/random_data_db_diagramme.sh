@@ -39,7 +39,7 @@ EOFMYSQL
     client_id=`shuf -i 1-$x -n 1`
     logiciel_id=`shuf -i 1-$x -n 1`
     date_commande=`date -d "$((RANDOM%6+2010))-$((RANDOM%12+1))-$((RANDOM%28+1))" '+%Y-%m-%d'`
-    fi
+    
         mysql -u amelie -ppassword <<EOFMYSQL
         use db_diagramme;
         insert into commande(commande_id,client_id,date_commande,logiciel_id)
